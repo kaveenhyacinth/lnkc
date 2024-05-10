@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -51,6 +53,15 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "bright-orange": {
+          DEFAULT: "hsl(var(--bright-orange))",
+        },
+        "bright-blue": {
+          DEFAULT: "hsl(var(--bright-blue))",
+        },
+        "light-white": {
+          DEFAULT: "hsl(var(--light-white))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -70,6 +81,11 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        "open-sans": ["Open Sans", ...defaultTheme.fontFamily.sans],
+        "raleway": ["Raleway", ...defaultTheme.fontFamily.sans],
+        "montserrat": ["Montserrat", ...defaultTheme.fontFamily.sans],
       },
     },
   },

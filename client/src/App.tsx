@@ -1,10 +1,10 @@
+import {SignIn} from "@/components/pages/SignIn.tsx";
+
 function App() {
 
   return (
     <>
-      <div>
-        <h1>LNKC</h1>
-      </div>
+      <SignIn/>
     </>
   )
 }
