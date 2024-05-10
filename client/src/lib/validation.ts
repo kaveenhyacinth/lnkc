@@ -13,4 +13,8 @@ export const validation = {
   forgotPassword: z.object({
     email: z.string().email({ message: "Invalid email address" }),
   }),
+  resetPassword: z.object({
+    password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+    confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  }),
 }

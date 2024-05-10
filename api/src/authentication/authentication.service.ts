@@ -37,7 +37,7 @@ export class AuthenticationService {
 
       /**
        * Create user team automatically when signing up
-       * Team name template: [firstname]'s Team
+       * Team name templates: [firstname]'s Team
        * User can edit the team name later
        */
       const team = await this.teamService.create({

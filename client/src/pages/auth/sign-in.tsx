@@ -5,7 +5,7 @@ import {z} from "zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {Page} from "@/components/atoms/page.tsx";
+import {Page} from "@/components/templates/page.tsx";
 import {createFileRoute, Link} from "@tanstack/react-router";
 
 type SignInForm = z.infer<typeof validation.signIn>
@@ -57,7 +57,7 @@ export const SignIn = () => {
             )}
           />
           <p className="text-sm font-raleway underline text-right">
-            <Link to="/auth/forgot-password">
+            <Link to="/auth/forgot-password" className="hover:text-light-white">
               Forgot password?
             </Link>
           </p>
@@ -65,7 +65,7 @@ export const SignIn = () => {
         </form>
       </Form>
       <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up"
-                                                                       className="text-bright-orange">sign up</Link>
+                                                                       className="text-bright-orange hover:text-dark-orange">sign up</Link>
       </p>
     </Page>
   )

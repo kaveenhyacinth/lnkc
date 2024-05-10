@@ -5,7 +5,7 @@ import {z} from "zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {Page} from "@/components/atoms/page.tsx";
+import {Page} from "@/components/templates/page.tsx";
 import {createFileRoute, Link} from "@tanstack/react-router";
 
 type SignUpForm = z.infer<typeof validation.signUp>
@@ -74,7 +74,7 @@ export const SignUp = () => {
           <Button className="w-full !mt-6 bg-bright-orange" type="submit">Sign up</Button>
         </form>
       </Form>
-      <p className="text-sm font-raleway">Already have an account? <Link to="/auth/sign-in" className="text-bright-orange">sign in</Link></p>
+      <p className="text-sm font-raleway">Already have an account? <Link to="/auth/sign-in" className="text-bright-orange hover:text-dark-orange">sign in</Link></p>
     </Page>
   )
 }

@@ -56,6 +56,9 @@ module.exports = {
         "bright-orange": {
           DEFAULT: "hsl(var(--bright-orange))",
         },
+        "dark-orange": {
+          DEFAULT: "hsl(var(--dark-orange))",
+        },
         "bright-blue": {
           DEFAULT: "hsl(var(--bright-blue))",
         },

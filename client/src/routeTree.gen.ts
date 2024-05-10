@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './pages/__root'
+import { Route as DashboardImport } from './pages/dashboard'
 import { Route as IndexImport } from './pages/index'
 import { Route as AuthSignUpImport } from './pages/auth/sign-up'
 import { Route as AuthSignInImport } from './pages/auth/sign-in'
+import { Route as AuthResetPasswordImport } from './pages/auth/reset-password'
 import { Route as AuthForgotPasswordImport } from './pages/auth/forgot-password'
 
 // Create/Update Routes
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -33,6 +40,11 @@ const AuthSignInRoute = AuthSignInImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  path: '/auth/reset-password',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   path: '/auth/forgot-password',
   getParentRoute: () => rootRoute,
@@ -46,8 +58,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/forgot-password': {
       preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/reset-password': {
+      preLoaderRoute: typeof AuthResetPasswordImport
       parentRoute: typeof rootRoute
     }
     '/auth/sign-in': {
@@ -65,7 +85,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
+  DashboardRoute,
   AuthForgotPasswordRoute,
+  AuthResetPasswordRoute,
   AuthSignInRoute,
   AuthSignUpRoute,
 ])
