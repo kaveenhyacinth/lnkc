@@ -1,4 +1,4 @@
-import {SignIn} from "@/components/pages/SignIn.tsx";
+import {SignIn} from "@/pages/sign-in.tsx";
 
 function App() {
 

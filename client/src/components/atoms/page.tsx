@@ -1,6 +1,6 @@
 import {PropsWithChildren} from "react";
-import {Header} from "@/components/atoms/Header.tsx";
-import {Footer} from "@/components/atoms/Footer.tsx";
+import {Header} from "@/components/atoms/header.tsx";
+import {Footer} from "@/components/atoms/footer.tsx";
 
 export const Page = ({children}: PropsWithChildren) => {
   return (
