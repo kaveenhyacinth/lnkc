@@ -9,7 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import UserIcon from "@/assets/svg/user-icon.svg?react";
 
-export const AccountDropdownWeb = () => {
+export interface AccountDropdownWebProps {
+  onSignOut: () => void
+}
+
+export const AccountDropdownWeb = ({onSignOut}: AccountDropdownWebProps) => {
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +30,7 @@ export const AccountDropdownWeb = () => {
           <DropdownMenuItem>
             <span>Settings</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={onSignOut}>
             <span className="text-destructive">Sign out</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>

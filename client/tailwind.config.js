@@ -65,6 +65,9 @@ module.exports = {
         "light-white": {
           DEFAULT: "hsl(var(--light-white))",
         },
+        "medium-black": {
+          DEFAULT: "hsl(var(--medium-black))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,7 +1,11 @@
 import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@/components/ui/drawer.tsx";
 import UserIcon from "@/assets/svg/user-icon.svg?react";
 
-export const AccountDropdownMobile = () => {
+export interface AccountDropdownMobileProps {
+  onSignOut: () => void
+}
+
+export const AccountDropdownMobile = ({onSignOut}: AccountDropdownMobileProps) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -16,7 +20,7 @@ export const AccountDropdownMobile = () => {
           </DrawerHeader>
           <div className="w-full p-4 mb-4 flex flex-col justify-center items-center">
             <p className="block py-2">Settings</p>
-            <p className="block py-2 text-destructive">Sign out</p>
+            <p className="block py-2 text-destructive" onClick={onSignOut}>Sign out</p>
           </div>
         </div>
       </DrawerContent>
