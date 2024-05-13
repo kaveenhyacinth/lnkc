@@ -9,7 +9,7 @@ import {
 
 @Entity({ name: 't_link' })
 export class Link {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: false })

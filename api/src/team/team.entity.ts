@@ -11,7 +11,7 @@ import {
 
 @Entity({ name: 't_team' })
 export class Team {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ name: 'team_name', nullable: false })

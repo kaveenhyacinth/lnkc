@@ -6,7 +6,11 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Page} from "@/components/templates/page.tsx";
-import {createFileRoute, Link} from "@tanstack/react-router";
+import {createFileRoute, Link, useNavigate} from "@tanstack/react-router";
+import {useMutation} from "@tanstack/react-query";
+import {api, IResponseError} from "../../../api";
+import {STORAGE_TOKEN_KEY} from "@/lib/constants.ts";
+import {useToast} from "@/components/ui/use-toast.ts";
 
 type SignInForm = z.infer<typeof validation.signIn>
 
@@ -19,8 +23,33 @@ export const SignIn = () => {
     }
   })
 
+  const navigate = useNavigate()
+  const {toast} = useToast()
+
+  const mutation = useMutation({
+    mutationFn: api.auth.signin.$post,
+    onSuccess: (data) => {
+      localStorage.setItem(STORAGE_TOKEN_KEY, data.token)
+      return navigate({to: '/dashboard'})
+    },
+    onError: (error: IResponseError) => {
+      console.error('sign-in error', error?.response?.data)
+      toast({
+        title: 'Uh oh! Sign in error...',
+        description: error?.response?.data?.message ?? 'Failed to login. Please try again!',
+        variant: 'destructive'
+      })
+    }
+  })
+
   const onSubmit = (values: SignInForm) => {
     console.log(values)
+    mutation.mutate({
+      body: {
+        email: values.email,
+        password: values.password,
+      }
+    })
   }
 
   return (

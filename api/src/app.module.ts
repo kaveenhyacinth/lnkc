@@ -34,7 +34,7 @@ import { LinkController } from './link/link.controller';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        type: 'postgres',
+        type: 'cockroachdb',
         host: config.get<string>('POSTGRES_HOST'),
         port: parseInt(config.get<string>('POSTGRES_PORT')),
         username: config.get<string>('POSTGRES_USER'),
@@ -42,6 +42,7 @@ import { LinkController } from './link/link.controller';
         database: config.get<string>('POSTGRES_DATABASE'),
         entities: [Link, User, Role, Team],
         synchronize: false,
+        ssl: true,
       }),
     }),
     TypeOrmModule.forFeature([Link, User, Role, Team]),

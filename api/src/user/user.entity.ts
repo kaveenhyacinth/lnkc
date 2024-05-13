@@ -10,7 +10,7 @@ import {
 
 @Entity({ name: 't_user' })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ name: 'first_name', nullable: false })

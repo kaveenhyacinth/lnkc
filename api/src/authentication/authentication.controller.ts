@@ -32,7 +32,7 @@ export class AuthenticationController {
     } catch (error) {
       throw new CustomException({
         error,
-        fallbackMessage: 'Something went wrong while signining up',
+        fallbackMessage: 'Something went wrong while signing up',
       });
     }
   }
