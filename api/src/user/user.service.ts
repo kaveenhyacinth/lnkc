@@ -32,7 +32,7 @@ export class UserService {
       const savedUser = await this.userRepository.save(newUser);
       return savedUser;
     } catch {
-      throw new Error('Something went wrong when creating the user');
+      throw new Error('Something went wrong when creating the users');
     }
   }
 
@@ -46,13 +46,13 @@ export class UserService {
         .getOne();
       return user;
     } catch {
-      throw new Error('Something went wrong when finding the user');
+      throw new Error('Something went wrong when finding the users');
     }
   }
 
   async findById(userId: string) {
     try {
-      if (!userId) throw new Error('Invalid identifier - user');
+      if (!userId) throw new Error('Invalid identifier - users');
       const user = await this.userRepository.findOne({
         where: { id: userId },
         relations: {
@@ -77,7 +77,7 @@ export class UserService {
       user = await this.findByEmail(email);
       return !!user;
     } catch {
-      throw new Error('Something went wrong when finding the user');
+      throw new Error('Something went wrong when finding the users');
     }
   }
 
@@ -95,7 +95,7 @@ export class UserService {
         .returning('*')
         .execute();
       const plainResult = user.raw[0];
-      if (!plainResult?.id) throw new Error('Invalid identifier - user');
+      if (!plainResult?.id) throw new Error('Invalid identifier - users');
       const userInstance = this.userRepository.create({
         ...plainResult,
         firstName: plainResult.first_name,
@@ -118,7 +118,7 @@ export class UserService {
 
   async deleteUser(userId: string) {
     try {
-      if (!userId) throw new Error('Invalid identifier - user');
+      if (!userId) throw new Error('Invalid identifier - users');
       await this.userRepository.delete({ id: userId });
     } catch (error) {
       throw error;

@@ -17,4 +17,8 @@ export const validation = {
     password: z.string().min(6, { message: "Password must be at least 6 characters" }),
     confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
   }),
+  createLink: z.object({
+    title: z.string().min(1, { message: "Title is required" }),
+    description: z.string().optional(),
+  }),
 }

@@ -23,7 +23,7 @@ export class TeamController {
     try {
       const user = req[USER];
       if (!user?.sub)
-        throw new InternalServerErrorException("Couldn't find user");
+        throw new InternalServerErrorException("Couldn't find users");
       const team = await this.teamService.findByOwner(user.sub);
       return team;
     } catch (error) {
@@ -43,7 +43,7 @@ export class TeamController {
     try {
       const user = req[USER];
       if (!user?.sub)
-        throw new InternalServerErrorException("Couldn't find user");
+        throw new InternalServerErrorException("Couldn't find users");
       const updatedTeam = await this.teamService.updateByOwner(user.sub, body);
       return updatedTeam;
     } catch (error) {

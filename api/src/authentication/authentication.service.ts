@@ -33,10 +33,10 @@ export class AuthenticationService {
       });
 
       if (!user?.id)
-        throw new Error('Something went wrong while creating user');
+        throw new Error('Something went wrong while creating users');
 
       /**
-       * Create user team automatically when signing up
+       * Create users team automatically when signing up
        * Team name templates: [firstname]'s Team
        * User can edit the team name later
        */
@@ -47,7 +47,7 @@ export class AuthenticationService {
       });
 
       if (!team?.id)
-        throw new Error('Something went wrong while creating user team');
+        throw new Error('Something went wrong while creating users team');
 
       return user;
     } catch (error) {

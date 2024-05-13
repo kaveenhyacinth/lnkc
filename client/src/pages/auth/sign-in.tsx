@@ -9,7 +9,7 @@ import {Page} from "@/components/templates/page.tsx";
 import {createFileRoute, Link, useNavigate} from "@tanstack/react-router";
 import {useMutation} from "@tanstack/react-query";
 import {api, IResponseError} from "../../../api";
-import {STORAGE_TOKEN_KEY} from "@/lib/constants.ts";
+import {STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useToast} from "@/components/ui/use-toast.ts";
 
 type SignInForm = z.infer<typeof validation.signIn>
@@ -29,7 +29,7 @@ export const SignIn = () => {
   const mutation = useMutation({
     mutationFn: api.auth.signin.$post,
     onSuccess: (data) => {
-      localStorage.setItem(STORAGE_TOKEN_KEY, data.token)
+      localStorage.setItem(STORAGE_KEY_TOKEN, data.token)
       return navigate({to: '/dashboard'})
     },
     onError: (error: IResponseError) => {

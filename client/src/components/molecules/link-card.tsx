@@ -2,22 +2,25 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import CopyIcon from "@/assets/svg/copy-icon.svg?react";
 import EditIcon from "@/assets/svg/edit-icon.svg?react";
 import VisitIcon from "@/assets/svg/paper-plane-icon.svg?react";
+import {ILink} from "../../../api/links";
 
-export const LinkCard = () => {
+export const LinkCard = ({title, description, shortCode, url}: ILink) => {
   return (
     <Card className="w-full md:w-[300px] h-[180px]">
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm font-raleway hidden mb-2">https://kawaskamex.cc/arex/tem...</p>
-        <p className="text-md text-bright-blue font-semibold font-raleway">lnkc.xyz/lqrmxyep</p>
+        <p className="text-sm font-raleway hidden mb-2">{url}</p>
+        <p className="text-md text-bright-blue font-semibold font-raleway">lnkc.xyz/{shortCode}</p>
       </CardContent>
       <CardFooter>
         <div className="w-full h-6 flex justify-between items-center">
           <div className="flex-1 flex gap-3 items-center">
-            <VisitIcon className="action-icon" />
+            <a href={`http://localhost:8080/${shortCode}`} target="_blank">
+              <VisitIcon className="action-icon" />
+            </a>
             <CopyIcon className="action-icon" />
             <EditIcon className="action-icon" />
           </div>

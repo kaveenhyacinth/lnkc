@@ -58,7 +58,7 @@ export class AuthenticationController {
     try {
       const user = req[USER];
       if (!user?.username)
-        throw new BadRequestException('Invalid identifier - user');
+        throw new BadRequestException('Invalid identifier - users');
       const token = await this.authService.changePassword(
         user.username,
         body.currentPassword,

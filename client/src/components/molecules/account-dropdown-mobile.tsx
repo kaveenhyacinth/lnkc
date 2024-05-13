@@ -2,10 +2,11 @@ import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@
 import UserIcon from "@/assets/svg/user-icon.svg?react";
 
 export interface AccountDropdownMobileProps {
+  username: string
   onSignOut: () => void
 }
 
-export const AccountDropdownMobile = ({onSignOut}: AccountDropdownMobileProps) => {
+export const AccountDropdownMobile = ({username, onSignOut}: AccountDropdownMobileProps) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -16,7 +17,7 @@ export const AccountDropdownMobile = ({onSignOut}: AccountDropdownMobileProps) =
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader className="!pb-2 ">
-            <DrawerTitle className="mt-2 font-raleway">Hi, John Doe</DrawerTitle>
+            <DrawerTitle className="mt-2 font-raleway">Hi, {username}</DrawerTitle>
           </DrawerHeader>
           <div className="w-full p-4 mb-4 flex flex-col justify-center items-center">
             <p className="block py-2">Settings</p>

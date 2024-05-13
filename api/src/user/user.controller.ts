@@ -28,12 +28,12 @@ export class UserController {
   async getMe(@Request() req: Req) {
     try {
       const user = req[USER];
-      if (!user?.sub) throw new Error('Invalid identifier - user');
+      if (!user?.sub) throw new Error('Invalid identifier - users');
       return await this.userService.findById(user.sub);
     } catch (error) {
       throw new CustomException({
         error,
-        fallbackMessage: 'Something went wrong while reading user',
+        fallbackMessage: 'Something went wrong while reading users',
       });
     }
   }
@@ -46,12 +46,12 @@ export class UserController {
   ) {
     try {
       const user = req[USER];
-      if (!user?.sub) throw new Error('Invalid identifier - user');
+      if (!user?.sub) throw new Error('Invalid identifier - users');
       return await this.userService.updateById(user.sub, body);
     } catch (error) {
       throw new CustomException({
         error,
-        fallbackMessage: 'Something went wrong while updating user',
+        fallbackMessage: 'Something went wrong while updating users',
       });
     }
   }
@@ -63,12 +63,12 @@ export class UserController {
     try {
       const user = req[USER];
       if (!user?.sub)
-        throw new BadRequestException('Invalid identifier - user');
+        throw new BadRequestException('Invalid identifier - users');
       await this.userService.deleteUser(user.sub);
     } catch (error) {
       throw new CustomException({
         error,
-        fallbackMessage: 'Something went wrong while deleting user',
+        fallbackMessage: 'Something went wrong while deleting users',
       });
     }
   }

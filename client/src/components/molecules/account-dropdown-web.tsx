@@ -10,17 +10,18 @@ import {
 import UserIcon from "@/assets/svg/user-icon.svg?react";
 
 export interface AccountDropdownWebProps {
+  username: string
   onSignOut: () => void
 }
 
-export const AccountDropdownWeb = ({onSignOut}: AccountDropdownWebProps) => {
+export const AccountDropdownWeb = ({username, onSignOut}: AccountDropdownWebProps) => {
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex justify-end items-center cursor-pointer">
           <UserIcon/>
-          <p className="ml-3 font-raleway hidden md:block hover:text-light-white">Hi, John Doe</p>
+          <p className="ml-3 font-raleway hidden md:block hover:text-light-white">Hi, {username}</p>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40 mt-2 mr-6">

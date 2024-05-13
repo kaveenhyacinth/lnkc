@@ -2,17 +2,21 @@ import {AccountDropdownWeb} from "@/components/molecules/account-dropdown-web.ts
 import {AccountDropdownMobile} from "@/components/molecules/account-dropdown-mobile.tsx";
 
 export interface AccountDropdownProps {
+  username: string
   onSignOut: () => void
 }
 
-export const AccountDropdown = ({onSignOut}: AccountDropdownProps) => {
+export const AccountDropdown = (props: AccountDropdownProps = {
+  username: '...',
+  onSignOut: () => {}
+}) => {
   return (
     <>
       <div className="hidden md:block">
-        <AccountDropdownWeb onSignOut={onSignOut}/>
+        <AccountDropdownWeb {...props}/>
       </div>
       <div className="md:hidden">
-        <AccountDropdownMobile onSignOut={onSignOut}/>
+        <AccountDropdownMobile {...props}/>
       </div>
     </>
   )
