@@ -11,17 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './pages/__root'
-import { Route as DashboardImport } from './pages/dashboard'
+import { Route as ProtectedImport } from './pages/_protected'
 import { Route as IndexImport } from './pages/index'
 import { Route as AuthSignUpImport } from './pages/auth/sign-up'
 import { Route as AuthSignInImport } from './pages/auth/sign-in'
 import { Route as AuthResetPasswordImport } from './pages/auth/reset-password'
 import { Route as AuthForgotPasswordImport } from './pages/auth/forgot-password'
+import { Route as ProtectedDashboardImport } from './pages/_protected/dashboard'
 
 // Create/Update Routes
 
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
+const ProtectedRoute = ProtectedImport.update({
+  id: '/_protected',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,6 +51,11 @@ const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ProtectedDashboardRoute = ProtectedDashboardImport.update({
+  path: '/dashboard',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -58,9 +64,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/dashboard': {
-      preLoaderRoute: typeof DashboardImport
+    '/_protected': {
+      preLoaderRoute: typeof ProtectedImport
       parentRoute: typeof rootRoute
+    }
+    '/_protected/dashboard': {
+      preLoaderRoute: typeof ProtectedDashboardImport
+      parentRoute: typeof ProtectedImport
     }
     '/auth/forgot-password': {
       preLoaderRoute: typeof AuthForgotPasswordImport
@@ -85,7 +95,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  DashboardRoute,
+  ProtectedRoute.addChildren([ProtectedDashboardRoute]),
   AuthForgotPasswordRoute,
   AuthResetPasswordRoute,
   AuthSignInRoute,

@@ -6,7 +6,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Page} from "@/components/templates/page.tsx";
-import {createFileRoute, Link, useNavigate} from "@tanstack/react-router";
+import {createFileRoute, Link, redirect, useNavigate} from "@tanstack/react-router";
 import {useMutation} from "@tanstack/react-query";
 import {api, IResponseError} from "../../../api";
 import {STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
@@ -94,12 +94,20 @@ export const SignIn = () => {
         </form>
       </Form>
       <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up"
-                                                                       className="text-bright-orange hover:text-dark-orange">sign up</Link>
+                                                                       className="text-bright-orange hover:text-dark-orange">sign
+        up</Link>
       </p>
     </Page>
   )
 }
 
 export const Route = createFileRoute('/auth/sign-in')({
+  beforeLoad: async () => {
+    if (localStorage.getItem(STORAGE_KEY_TOKEN)) {
+      throw redirect({
+        to: '/dashboard',
+      })
+    }
+  },
   component: SignIn,
 })

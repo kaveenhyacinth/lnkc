@@ -5,10 +5,11 @@ import {Input} from "@/components/ui/input.tsx";
 import {LinkCard} from "@/components/molecules/link-card.tsx";
 import {QUERY_KEY_USER_ME, STORAGE_KEY_TEAM, STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {api, IResponseError} from "../../api";
+import {api, IResponseError} from "../../../api";
 import {useEffect, useState} from "react";
 import {CreateLinkDialog} from "@/components/organisms/create-link-dialog.tsx";
 import {useToast} from "@/components/ui/use-toast.ts";
+import {ILink} from "../../../api/types.ts";
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -42,6 +43,37 @@ export const Dashboard = () => {
     }
   })
 
+  const updateLinkMutation = useMutation({
+    mutationFn: ({linkId, payload}: {
+      linkId: string,
+      payload: { title: string, description: string }
+    }) => api.links._linkId(linkId).$patch({body: payload}),
+    onSuccess: async () => {
+      await getAllLinksQuery.refetch()
+    },
+    onError: (error: IResponseError) => {
+      toast({
+        title: 'Uh oh! Update link error...',
+        description: error?.response?.data?.message?.[0] ?? error?.response?.data?.message ?? 'Failed to update link. Please try again!',
+        variant: 'destructive'
+      })
+    }
+  })
+
+  const deleteLinkMutation = useMutation({
+    mutationFn: (linkId: string) => api.links._linkId(linkId).$delete(),
+    onSuccess: async () => {
+      await getAllLinksQuery.refetch()
+    },
+    onError: (error: IResponseError) => {
+      toast({
+        title: 'Uh oh! Delete link error...',
+        description: error?.response?.data?.message?.[0] ?? error?.response?.data?.message ?? 'Failed to delete link. Please try again!',
+        variant: 'destructive'
+      })
+    }
+  })
+
   useEffect(() => {
     const team = getUserQuery?.data?.team
     if (team)
@@ -50,10 +82,11 @@ export const Dashboard = () => {
 
   const onSignOut = () => {
     localStorage.removeItem(STORAGE_KEY_TOKEN)
+    localStorage.removeItem(STORAGE_KEY_TEAM)
     return navigate({to: '/auth/sign-in'})
   }
 
-  const onShortenUrl = ({url, title, description}: {
+  const onCreateShortCode = ({url, title, description}: {
     url: string,
     title: string,
     description?: string
@@ -61,6 +94,14 @@ export const Dashboard = () => {
     createLinkMutation.mutate({
       body: {url, title, description: description ?? ''}
     })
+  }
+
+  const onUpdateShortCode = ({id, title, description}: Pick<ILink, 'title' | 'description' | 'id'>) => {
+    updateLinkMutation.mutate({linkId: id, payload: {title, description}})
+  }
+
+  const onDeleteShortCode = (linkId: string) => {
+    deleteLinkMutation.mutate(linkId)
   }
 
   return (
@@ -89,14 +130,14 @@ export const Dashboard = () => {
                 onChange={(e) => setUrl(e.target.value)}
               />
             </div>
-            <CreateLinkDialog url={url} setUrl={(url) => setUrl(url)} onCreate={onShortenUrl}/>
+            <CreateLinkDialog url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
           </div>
         </div>
       </div>
       <section className="w-full my-6 flex flex-col justify-center items-center">
         <div className="w-full md:w-max grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {getAllLinksQuery.data?.map((link) => (
-            <LinkCard key={link.id} {...link}/>
+            <LinkCard key={link.id} link={link} onUpdate={onUpdateShortCode} onDelete={onDeleteShortCode}/>
           ))}
         </div>
       </section>
@@ -109,6 +150,6 @@ export const Dashboard = () => {
   )
 }
 
-export const Route = createFileRoute('/dashboard')({
+export const Route = createFileRoute('/_protected/dashboard')({
   component: Dashboard
 })

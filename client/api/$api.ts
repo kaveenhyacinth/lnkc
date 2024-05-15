@@ -2,6 +2,7 @@ import type { AspidaClient } from 'aspida';
 import type { Methods as Methods_23mjnn } from './auth/signin';
 import type { Methods as Methods_1yes9ht } from './auth/signup';
 import type { Methods as Methods_1oaty1f } from './links';
+import type { Methods as Methods_1ecximh } from './links/_linkId@string';
 import type { Methods as Methods_jzr18p } from './users/me';
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
@@ -12,6 +13,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const PATH3 = '/users/me';
   const GET = 'GET';
   const POST = 'POST';
+  const DELETE = 'DELETE';
+  const PATCH = 'PATCH';
 
   return {
     auth: {
@@ -31,6 +34,25 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       },
     },
     links: {
+      _linkId: (val1: string) => {
+        const prefix1 = `${PATH2}/${val1}`;
+
+        return {
+          get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods_1ecximh['get']['resBody']>(prefix, prefix1, GET, option).json(),
+          $get: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods_1ecximh['get']['resBody']>(prefix, prefix1, GET, option).json().then(r => r.body),
+          patch: (option: { body: Methods_1ecximh['patch']['reqBody'], config?: T | undefined }) =>
+            fetch<Methods_1ecximh['patch']['resBody']>(prefix, prefix1, PATCH, option).json(),
+          $patch: (option: { body: Methods_1ecximh['patch']['reqBody'], config?: T | undefined }) =>
+            fetch<Methods_1ecximh['patch']['resBody']>(prefix, prefix1, PATCH, option).json().then(r => r.body),
+          delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods_1ecximh['delete']['resBody']>(prefix, prefix1, DELETE, option).json(),
+          $delete: (option?: { config?: T | undefined } | undefined) =>
+            fetch<Methods_1ecximh['delete']['resBody']>(prefix, prefix1, DELETE, option).json().then(r => r.body),
+          $path: () => `${prefix}${prefix1}`,
+        };
+      },
       get: (option?: { config?: T | undefined } | undefined) =>
         fetch<Methods_1oaty1f['get']['resBody']>(prefix, PATH2, GET, option).json(),
       $get: (option?: { config?: T | undefined } | undefined) =>
