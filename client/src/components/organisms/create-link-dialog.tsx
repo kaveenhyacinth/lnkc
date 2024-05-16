@@ -14,14 +14,18 @@ import {validation} from "@/lib/validation.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {useState} from "react";
+import {PlusIcon} from "lucide-react";
 
 type CreateLinkForm = z.infer<typeof validation.createLink>
 
-export const CreateLinkDialog = ({url, setUrl, onCreate}: {
+export interface CreateLinkDialogProps {
   url: string
   setUrl: (url: string) => void
+  isFloating?: boolean
   onCreate: (payload: { url: string, title: string, description?: string }) => void
-}) => {
+}
+
+export const CreateLinkDialog = ({url, setUrl, isFloating, onCreate}: CreateLinkDialogProps) => {
   const form = useForm<CreateLinkForm>({
     resolver: zodResolver(validation.createLink),
     defaultValues: {
@@ -48,7 +52,13 @@ export const CreateLinkDialog = ({url, setUrl, onCreate}: {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)}>Shorten</Button>
+        {isFloating ? (
+          <Button className="w-[60px] h-[60px] fixed right-6 bottom-6 rounded-full" onClick={() => setIsOpen(true)}>
+            <PlusIcon className="w-6 h-6"/>
+          </Button>
+        ) : (
+          <Button className="w-full md:w-auto" onClick={() => setIsOpen(true)}>Shorten</Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -31,7 +31,7 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
   return (
     <Card className="w-full md:w-[300px] h-[180px] flex flex-col justify-between">
       <CardHeader>
-        <CardTitle>{link.title}</CardTitle>
+        <CardTitle className="overflow-hidden overflow-ellipsis">{link.title}</CardTitle>
         <CardDescription>{link.description}</CardDescription>
       </CardHeader>
       <CardContent>

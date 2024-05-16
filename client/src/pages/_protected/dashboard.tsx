@@ -16,6 +16,8 @@ export const Dashboard = () => {
   const {toast} = useToast()
 
   const [url, setUrl] = useState<string>("")
+  const [showLinkInput, setShowLinkInput] = useState(true);
+  const [scrollYPosition, setScrollYPosition] = useState(0);
 
   const getUserQuery = useQuery({
     queryKey: [QUERY_KEY_USER_ME],
@@ -80,6 +82,24 @@ export const Dashboard = () => {
       localStorage.setItem(STORAGE_KEY_TEAM, team)
   }, [getUserQuery, getUserQuery?.data])
 
+  const handleScroll = () => {
+    const newScrollYPosition = window.pageYOffset;
+    setScrollYPosition(newScrollYPosition);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (scrollYPosition > 150) {
+      setShowLinkInput(false);
+    } else {
+      setShowLinkInput(true);
+    }
+  }, [scrollYPosition]);
+
   const onSignOut = () => {
     localStorage.removeItem(STORAGE_KEY_TOKEN)
     localStorage.removeItem(STORAGE_KEY_TEAM)
@@ -114,26 +134,33 @@ export const Dashboard = () => {
         </div>
       )}
     >
-      <div className="w-full">
-        <h1 className="font-raleway font-semibold text-2xl md:text-4xl text-center">Shorter links, with <span
-          className="text-bright-orange">lnkc</span></h1>
-        <p className="text-center font-raleway mt-2 tracking-wider md:tracking-wide">
-          It’s much simpler to share a shorter link than a long, complicated one</p>
-        <div className="w-full center">
-          <div
-            className="space-y-3 md:space-y-0 md:space-x-2 w-full py-4 mt-6 md:max-w-[550px] md:flex md:py-0"
-          >
-            <div className="flex-1">
-              <Input
-                placeholder="Drop your complicated URL here..."
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-              />
+      {showLinkInput ? (
+        <div className="w-full">
+          <h1 className="font-raleway font-semibold text-2xl md:text-4xl text-center">Shorter links, with <span
+            className="text-bright-orange">lnkc</span></h1>
+          <p className="text-center font-raleway mt-2 tracking-wider md:tracking-wide">
+            It’s much simpler to share a shorter link than a long, complicated one</p>
+          <div className="w-full center">
+            <div
+              className="space-y-3 md:space-y-0 md:space-x-2 w-full py-4 mt-6 md:max-w-[550px] md:flex md:py-0"
+            >
+              <div className="flex-1">
+                <Input
+                  placeholder="Drop your complicated URL here..."
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+              </div>
+              <CreateLinkDialog url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
             </div>
-            <CreateLinkDialog url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
           </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="w-full h-[236px] md:h-[136px]"></div>
+          <CreateLinkDialog isFloating url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
+        </>
+      )}
       <section className="w-full my-6 flex flex-col justify-center items-center">
         <div className="w-full md:w-max grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {getAllLinksQuery.data?.map((link) => (

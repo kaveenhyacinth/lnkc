@@ -59,7 +59,9 @@ export const UpdateLinkDialog = ({link, onUpdate, onDelete}: UpdateLinkDialogPro
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogTrigger asChild>
-        <EditIcon className="action-icon" onClick={() => setIsOpen(true)} />
+        <div onClick={() => setIsOpen(true)}>
+          <EditIcon className="action-icon" />
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
