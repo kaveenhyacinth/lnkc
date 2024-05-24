@@ -1,19 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Headers,
   BadRequestException,
-  Patch,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Link } from './link.entity';
 import { CreateLinkDto } from './dtos/create-link.dto';
 import { LinkDto } from './dtos/link.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
@@ -26,11 +23,7 @@ import { UpdateLinkDto } from './dtos/update-link.dto';
 @Controller('api/links')
 @Serialize(LinkDto)
 export class LinkController {
-  constructor(
-    @InjectRepository(Link)
-    private readonly urlRepository: Repository<Link>,
-    private linkService: LinkService,
-  ) {}
+  constructor(private linkService: LinkService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Restricted()
@@ -90,12 +83,11 @@ export class LinkController {
   ) {
     try {
       if (!linkId || !teamId) throw new Error('Invalid Identifier');
-      const updatedLink = await this.linkService.updateOneById({
+      return await this.linkService.updateOneById({
         teamId,
         linkId,
         body,
       });
-      return updatedLink;
     } catch (error) {
       throw new CustomException({
         error,

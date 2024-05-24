@@ -32,8 +32,7 @@ export class LinkService {
         team,
       });
 
-      const savedLink = await this.linkRepository.save(newLink);
-      return savedLink;
+      return await this.linkRepository.save(newLink);
     } catch (error) {
       throw error;
     }
@@ -43,12 +42,38 @@ export class LinkService {
     try {
       if (!teamId) throw new Error('Invalid team id');
 
-      const links = await this.linkRepository
+      const rawLinks = await this.linkRepository
         .createQueryBuilder('t_link')
+        .leftJoin('t_link.analytics', 't_analytics')
         .where('t_link.team_id = :teamId', { teamId })
-        .getMany();
+        .select([
+          't_link.id AS id',
+          't_link.title AS title',
+          't_link.description AS description',
+          't_link.url AS url',
+          't_link.short_code AS shortCode',
+          't_link.has_qr AS hasQr',
+          't_link.is_custom AS isCustom',
+          't_link.is_pinned AS isPinned',
+          't_link.properties AS properties',
+          'COUNT(t_analytics.id) AS analyticsCount',
+        ])
+        .groupBy('t_link.id')
+        .orderBy('analyticsCount', 'DESC')
+        .getRawMany();
 
-      return links;
+      return rawLinks.map((rawLink) => ({
+        id: rawLink.id,
+        title: rawLink.title,
+        description: rawLink.description,
+        url: rawLink.url,
+        shortCode: rawLink.shortcode,
+        hasQr: rawLink.hasqr,
+        isCustom: rawLink.iscustom,
+        isPinned: rawLink.ispinned,
+        properties: rawLink.properties,
+        analyticsCount: parseInt(rawLink.analyticscount, 10), // Convert string to number
+      }));
     } catch (error) {
       throw error;
     }

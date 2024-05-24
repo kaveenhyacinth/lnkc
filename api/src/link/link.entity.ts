@@ -4,8 +4,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Analytics } from '../analytics/analytics.entity';
 
 @Entity({ name: 't_link' })
 export class Link {
@@ -39,4 +41,7 @@ export class Link {
   @ManyToOne(() => Team, (team) => team.links)
   @JoinColumn({ name: 'team_id' })
   team: Team;
+
+  @OneToMany(() => Analytics, (analytics) => analytics.entity)
+  analytics: Analytics[];
 }

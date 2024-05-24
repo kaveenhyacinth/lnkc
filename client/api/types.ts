@@ -9,4 +9,5 @@ export interface ILink {
   isPinned: boolean;
   properties: object;
   team: object;
+  analyticsCount?: number;
 }

@@ -4,6 +4,7 @@ import VisitIcon from "@/assets/svg/paper-plane-icon.svg?react";
 import {ILink} from "../../../api/types.ts";
 import {UpdateLinkDialog} from "@/components/organisms/update-link-dialog.tsx";
 import {useToast} from "@/components/ui/use-toast.ts";
+import {useEffect, useState} from "react";
 
 export interface LinkCardProps {
   link: ILink;
@@ -13,7 +14,12 @@ export interface LinkCardProps {
 
 export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
 
-  const { toast } = useToast()
+  const {toast} = useToast()
+
+  const [stats, setStats] = useState<{
+    views: number;
+    text: 'view' | 'views';
+  }>({views: 0, text: 'views'})
 
   const onCopy = async () => {
     const value = `http://localhost:8080/${link.shortCode}`
@@ -28,6 +34,15 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
     }
   }
 
+  useEffect(() => {
+    if (link.analyticsCount) {
+      setStats({
+        views: link.analyticsCount,
+        text: link.analyticsCount === 1 ? 'view' : 'views'
+      })
+    }
+  }, [link.analyticsCount]);
+
   return (
     <Card className="w-full md:w-[300px] h-[180px] flex flex-col justify-between">
       <CardHeader>
@@ -36,19 +51,22 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
       </CardHeader>
       <CardContent>
         <p className="text-sm font-raleway hidden mb-2">{link.url}</p>
-        <p className="text-md text-bright-blue font-semibold font-raleway">lnkc.xyz/{link.shortCode}</p>
+        <a href={`http://localhost:8080/${link.shortCode}`} target="_blank">
+          <p className="text-md text-bright-blue font-semibold font-raleway">lnkc.xyz/{link.shortCode}</p>
+        </a>
       </CardContent>
       <CardFooter>
         <div className="w-full h-6 flex justify-between items-center">
           <div className="flex-1 flex gap-3 items-center">
             <a href={`http://localhost:8080/${link.shortCode}`} target="_blank">
-              <VisitIcon className="action-icon" />
+              <VisitIcon className="action-icon"/>
             </a>
-            <CopyIcon className="action-icon" onClick={onCopy} />
-            <UpdateLinkDialog link={link} onUpdate={onUpdate} onDelete={onDelete} />
+            <CopyIcon className="action-icon" onClick={onCopy}/>
+            <UpdateLinkDialog link={link} onUpdate={onUpdate} onDelete={onDelete}/>
           </div>
           <div>
-            <p className="text-[12px] text-muted-foreground font-raleway text-right">21 Views</p>
+            <p
+              className="text-[12px] text-muted-foreground font-raleway text-right">{`${stats.views} ${stats.text}`}</p>
           </div>
         </div>
       </CardFooter>

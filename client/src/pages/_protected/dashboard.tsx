@@ -161,8 +161,8 @@ export const Dashboard = () => {
           <CreateLinkDialog isFloating url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
         </>
       )}
-      <section className="w-full my-6 flex flex-col justify-center items-center">
-        <div className="w-full md:w-max grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <section className="w-full mb-6 mt-6 md:mt-10 flex flex-col justify-center items-center">
+        <div className="w-full md:w-max grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {getAllLinksQuery.data?.map((link) => (
             <LinkCard key={link.id} link={link} onUpdate={onUpdateShortCode} onDelete={onDeleteShortCode}/>
           ))}

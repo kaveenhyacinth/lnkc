@@ -27,4 +27,7 @@ export class LinkDto {
 
   @Expose()
   properties: object;
+
+  @Expose()
+  analyticsCount?: number;
 }

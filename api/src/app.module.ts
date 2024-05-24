@@ -15,6 +15,8 @@ import { TeamModule } from './team/team.module';
 import { Team } from './team/team.entity';
 import { VerifyOwnershipMiddleware } from './middlewares/verify-ownership.middleware';
 import { LinkController } from './link/link.controller';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { Analytics } from './analytics/analytics.entity';
 
 @Module({
   imports: [
@@ -40,17 +42,18 @@ import { LinkController } from './link/link.controller';
         username: config.get<string>('POSTGRES_USER'),
         password: config.get<string>('POSTGRES_PASSWORD'),
         database: config.get<string>('POSTGRES_DATABASE'),
-        entities: [Link, User, Role, Team],
+        entities: [Link, User, Role, Team, Analytics],
         synchronize: false,
         ssl: true,
       }),
     }),
-    TypeOrmModule.forFeature([Link, User, Role, Team]),
+    TypeOrmModule.forFeature([Link, User, Role, Team, Analytics]),
     LinkModule,
     AuthenticationModule,
     UserModule,
     RoleModule,
     TeamModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
