@@ -26,7 +26,7 @@ export const ResetPassword = () => {
 
   const goToSignIn = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    return navigate({to: '/auth/sign-in'})
+    return navigate({to: '/app/auth/sign-in'})
   }
 
   const onSubmit = (values: ResetPasswordForm) => {

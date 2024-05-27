@@ -5,7 +5,7 @@ export const Route = createFileRoute('/app/_protected')({
   beforeLoad: async ({location}) => {
     if (!localStorage.getItem(STORAGE_KEY_TOKEN)) {
       throw redirect({
-        to: '/auth/sign-in',
+        to: '/app/auth/sign-in',
         search: {
           redirect: location.href
         }

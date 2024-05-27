@@ -103,7 +103,7 @@ export const Dashboard = () => {
   const onSignOut = () => {
     localStorage.removeItem(STORAGE_KEY_TOKEN)
     localStorage.removeItem(STORAGE_KEY_TEAM)
-    return navigate({to: '/auth/sign-in'})
+    return navigate({to: '/app/auth/sign-in'})
   }
 
   const onCreateShortCode = ({url, title, description}: {

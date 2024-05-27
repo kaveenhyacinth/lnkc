@@ -74,7 +74,7 @@ export const SignUp = () => {
           <Button className="w-full !mt-6 bg-bright-orange" type="submit">Sign up</Button>
         </form>
       </Form>
-      <p className="text-sm font-raleway">Already have an account? <Link to="/auth/sign-in" className="text-bright-orange hover:text-dark-orange">sign in</Link></p>
+      <p className="text-sm font-raleway">Already have an account? <Link to="/app/auth/sign-in" className="text-bright-orange hover:text-dark-orange">sign in</Link></p>
     </Page>
   )
 }

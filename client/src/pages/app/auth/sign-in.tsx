@@ -30,7 +30,7 @@ export const SignIn = () => {
     mutationFn: api.auth.signin.$post,
     onSuccess: (data) => {
       localStorage.setItem(STORAGE_KEY_TOKEN, data.token)
-      return navigate({to: '/dashboard'})
+      return navigate({to: '/app/dashboard'})
     },
     onError: (error: IResponseError) => {
       console.error('sign-in error', error?.response?.data)
@@ -86,14 +86,14 @@ export const SignIn = () => {
             )}
           />
           <p className="text-sm font-raleway underline text-right">
-            <Link to="/auth/forgot-password" className="hover:text-light-white">
+            <Link to="/app/auth/forgot-password" className="hover:text-light-white">
               Forgot password?
             </Link>
           </p>
           <Button className="w-full !mt-6 bg-bright-orange" type="submit">Sign in</Button>
         </form>
       </Form>
-      <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up"
+      <p className="text-sm font-raleway">Don't have an account? <Link to="/app/auth/sign-up"
                                                                        className="text-bright-orange hover:text-dark-orange">sign
         up</Link>
       </p>
@@ -105,7 +105,7 @@ export const Route = createFileRoute('/app/auth/sign-in')({
   beforeLoad: async () => {
     if (localStorage.getItem(STORAGE_KEY_TOKEN)) {
       throw redirect({
-        to: '/dashboard',
+        to: '/app/dashboard',
       })
     }
   },
