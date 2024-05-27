@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'lnkc-backend',
       script: 'npm',
-      args: 'start:prod',
+      args: 'run start:prod',
       cwd: './api', // Ensure you are in the correct directory
       instances: 1,
       autorestart: true,
@@ -18,7 +18,7 @@ module.exports = {
     {
       name: 'lnkc-frontend',
       script: 'npm',
-      args: 'start:prod',
+      args: 'run start:prod',
       cwd: './client', // Ensure you are in the correct directory
       instances: 1,
       autorestart: true,
