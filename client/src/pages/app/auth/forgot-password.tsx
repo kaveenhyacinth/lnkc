@@ -68,6 +68,6 @@ export const ForgotPassword = () => {
   )
 }
 
-export const Route = createFileRoute('/auth/forgot-password')({
+export const Route = createFileRoute('/app/auth/forgot-password')({
   component: ForgotPassword,
 })

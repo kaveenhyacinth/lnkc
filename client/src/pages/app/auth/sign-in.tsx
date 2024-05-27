@@ -8,7 +8,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Page} from "@/components/templates/page.tsx";
 import {createFileRoute, Link, redirect, useNavigate} from "@tanstack/react-router";
 import {useMutation} from "@tanstack/react-query";
-import {api, IResponseError} from "../../../api";
+import {api, IResponseError} from "../../../../api";
 import {STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useToast} from "@/components/ui/use-toast.ts";
 
@@ -101,7 +101,7 @@ export const SignIn = () => {
   )
 }
 
-export const Route = createFileRoute('/auth/sign-in')({
+export const Route = createFileRoute('/app/auth/sign-in')({
   beforeLoad: async () => {
     if (localStorage.getItem(STORAGE_KEY_TOKEN)) {
       throw redirect({

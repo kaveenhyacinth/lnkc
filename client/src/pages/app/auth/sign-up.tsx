@@ -79,6 +79,6 @@ export const SignUp = () => {
   )
 }
 
-export const Route = createFileRoute('/auth/sign-up')({
+export const Route = createFileRoute('/app/auth/sign-up')({
   component: SignUp,
 })

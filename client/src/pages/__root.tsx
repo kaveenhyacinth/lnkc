@@ -1,19 +1,9 @@
-import {createRootRouteWithContext, Outlet} from '@tanstack/react-router'
-import {TanStackRouterDevtools} from '@tanstack/router-devtools'
-import {Toaster} from "@/components/ui/toaster.tsx";
-import {AuthState} from "@/store/auth.tsx";
+import {createRootRoute, Outlet} from "@tanstack/react-router";
 
-type RouterContext = {
-  authentication: AuthState
-}
-
-export const Route = createRootRouteWithContext<RouterContext>()({
+export const Route = createRootRoute({
   component: () => (
     <>
-      <Outlet/>
-      <Toaster/>
-      {/* Start rendering router matches */}
-      <TanStackRouterDevtools position="bottom-left"/>
+      <Outlet />
     </>
   )
 })

@@ -94,6 +94,6 @@ export const ResetPassword = () => {
   )
 }
 
-export const Route = createFileRoute('/auth/reset-password')({
+export const Route = createFileRoute('/app/auth/reset-password')({
   component: ResetPassword
 })
