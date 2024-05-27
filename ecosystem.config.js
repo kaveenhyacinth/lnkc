@@ -18,7 +18,7 @@ module.exports = {
     {
       name: 'lnkc-frontend',
       script: 'npm',
-      args: 'start',
+      args: 'start:prod',
       cwd: './client', // Ensure you are in the correct directory
       instances: 1,
       autorestart: true,
