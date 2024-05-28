@@ -13,11 +13,11 @@
 import { Route as rootRoute } from './pages/__root'
 import { Route as ProtectedImport } from './pages/_protected'
 import { Route as IndexImport } from './pages/index'
-import { Route as AppAuthSignUpImport } from './pages/app/auth/sign-up'
-import { Route as AppAuthSignInImport } from './pages/app/auth/sign-in'
-import { Route as AppAuthResetPasswordImport } from './pages/app/auth/reset-password'
-import { Route as AppAuthForgotPasswordImport } from './pages/app/auth/forgot-password'
-import { Route as ProtectedAppDashboardImport } from './pages/_protected/app/dashboard'
+import { Route as AuthSignUpImport } from './pages/auth/sign-up'
+import { Route as AuthSignInImport } from './pages/auth/sign-in'
+import { Route as AuthResetPasswordImport } from './pages/auth/reset-password'
+import { Route as AuthForgotPasswordImport } from './pages/auth/forgot-password'
+import { Route as ProtectedDashboardImport } from './pages/_protected/dashboard'
 
 // Create/Update Routes
 
@@ -31,28 +31,28 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppAuthSignUpRoute = AppAuthSignUpImport.update({
-  path: '/app/auth/sign-up',
+const AuthSignUpRoute = AuthSignUpImport.update({
+  path: '/auth/sign-up',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppAuthSignInRoute = AppAuthSignInImport.update({
-  path: '/app/auth/sign-in',
+const AuthSignInRoute = AuthSignInImport.update({
+  path: '/auth/sign-in',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppAuthResetPasswordRoute = AppAuthResetPasswordImport.update({
-  path: '/app/auth/reset-password',
+const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  path: '/auth/reset-password',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppAuthForgotPasswordRoute = AppAuthForgotPasswordImport.update({
-  path: '/app/auth/forgot-password',
+const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
+  path: '/auth/forgot-password',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProtectedAppDashboardRoute = ProtectedAppDashboardImport.update({
-  path: '/app/dashboard',
+const ProtectedDashboardRoute = ProtectedDashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => ProtectedRoute,
 } as any)
 
@@ -68,24 +68,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedImport
       parentRoute: typeof rootRoute
     }
-    '/_protected/app/dashboard': {
-      preLoaderRoute: typeof ProtectedAppDashboardImport
+    '/_protected/dashboard': {
+      preLoaderRoute: typeof ProtectedDashboardImport
       parentRoute: typeof ProtectedImport
     }
-    '/app/auth/forgot-password': {
-      preLoaderRoute: typeof AppAuthForgotPasswordImport
+    '/auth/forgot-password': {
+      preLoaderRoute: typeof AuthForgotPasswordImport
       parentRoute: typeof rootRoute
     }
-    '/app/auth/reset-password': {
-      preLoaderRoute: typeof AppAuthResetPasswordImport
+    '/auth/reset-password': {
+      preLoaderRoute: typeof AuthResetPasswordImport
       parentRoute: typeof rootRoute
     }
-    '/app/auth/sign-in': {
-      preLoaderRoute: typeof AppAuthSignInImport
+    '/auth/sign-in': {
+      preLoaderRoute: typeof AuthSignInImport
       parentRoute: typeof rootRoute
     }
-    '/app/auth/sign-up': {
-      preLoaderRoute: typeof AppAuthSignUpImport
+    '/auth/sign-up': {
+      preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof rootRoute
     }
   }
@@ -95,11 +95,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  ProtectedRoute.addChildren([ProtectedAppDashboardRoute]),
-  AppAuthForgotPasswordRoute,
-  AppAuthResetPasswordRoute,
-  AppAuthSignInRoute,
-  AppAuthSignUpRoute,
+  ProtectedRoute.addChildren([ProtectedDashboardRoute]),
+  AuthForgotPasswordRoute,
+  AuthResetPasswordRoute,
+  AuthSignInRoute,
+  AuthSignUpRoute,
 ])
 
 /* prettier-ignore-end */

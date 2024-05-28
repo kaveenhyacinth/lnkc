@@ -5,11 +5,11 @@ import {Input} from "@/components/ui/input.tsx";
 import {LinkCard} from "@/components/molecules/link-card.tsx";
 import {QUERY_KEY_USER_ME, STORAGE_KEY_TEAM, STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {api, IResponseError} from "../../../../api";
+import {api, IResponseError} from "../../../api";
 import {useEffect, useState} from "react";
 import {CreateLinkDialog} from "@/components/organisms/create-link-dialog.tsx";
 import {useToast} from "@/components/ui/use-toast.ts";
-import {ILink} from "../../../../api/types.ts";
+import {ILink} from "../../../api/types.ts";
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -103,7 +103,7 @@ export const Dashboard = () => {
   const onSignOut = () => {
     localStorage.removeItem(STORAGE_KEY_TOKEN)
     localStorage.removeItem(STORAGE_KEY_TEAM)
-    return navigate({to: '/app/auth/sign-in'})
+    return navigate({to: '/auth/sign-in'})
   }
 
   const onCreateShortCode = ({url, title, description}: {
@@ -177,6 +177,6 @@ export const Dashboard = () => {
   )
 }
 
-export const Route = createFileRoute('/_protected/app/dashboard')({
+export const Route = createFileRoute('/_protected/dashboard')({
   component: Dashboard
 })

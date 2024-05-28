@@ -8,7 +8,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Page} from "@/components/templates/page.tsx";
 import {createFileRoute, Link, redirect, useNavigate} from "@tanstack/react-router";
 import {useMutation} from "@tanstack/react-query";
-import {api, IResponseError} from "../../../../api";
+import {api, IResponseError} from "../../../api";
 import {STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useToast} from "@/components/ui/use-toast.ts";
 
@@ -30,7 +30,7 @@ export const SignIn = () => {
     mutationFn: api.auth.signin.$post,
     onSuccess: (data) => {
       localStorage.setItem(STORAGE_KEY_TOKEN, data.token)
-      return navigate({to: '/app/dashboard'})
+      return navigate({to: '/dashboard'})
     },
     onError: (error: IResponseError) => {
       console.error('sign-in error', error?.response?.data)
@@ -86,14 +86,14 @@ export const SignIn = () => {
             )}
           />
           <p className="text-sm font-raleway underline text-right">
-            <Link to="/app/auth/forgot-password" className="hover:text-light-white">
+            <Link to="/auth/forgot-password" className="hover:text-light-white">
               Forgot password?
             </Link>
           </p>
           <Button className="w-full !mt-6 bg-bright-orange" type="submit">Sign in</Button>
         </form>
       </Form>
-      <p className="text-sm font-raleway">Don't have an account? <Link to="/app/auth/sign-up"
+      <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up"
                                                                        className="text-bright-orange hover:text-dark-orange">sign
         up</Link>
       </p>
@@ -101,11 +101,11 @@ export const SignIn = () => {
   )
 }
 
-export const Route = createFileRoute('/app/auth/sign-in')({
+export const Route = createFileRoute('/auth/sign-in')({
   beforeLoad: async () => {
     if (localStorage.getItem(STORAGE_KEY_TOKEN)) {
       throw redirect({
-        to: '/app/dashboard',
+        to: '/dashboard',
       })
     }
   },

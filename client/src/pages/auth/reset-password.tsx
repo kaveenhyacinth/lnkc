@@ -26,7 +26,7 @@ export const ResetPassword = () => {
 
   const goToSignIn = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    return navigate({to: '/app/auth/sign-in'})
+    return navigate({to: '/auth/sign-in'})
   }
 
   const onSubmit = (values: ResetPasswordForm) => {
@@ -94,6 +94,6 @@ export const ResetPassword = () => {
   )
 }
 
-export const Route = createFileRoute('/app/auth/reset-password')({
+export const Route = createFileRoute('/auth/reset-password')({
   component: ResetPassword
 })
