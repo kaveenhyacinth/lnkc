@@ -3,7 +3,7 @@ import aspida from "@aspida/axios";
 import sdk from "../api/$api";
 import {STORAGE_KEY_TEAM, STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 
-const http = axios.create({ baseURL: "http://localhost:8080/api" });
+const http = axios.create({ baseURL: `${import.meta.env.VITE_API_BASE_URL}/api` });
 
 http.interceptors.request.use(
   config => {
