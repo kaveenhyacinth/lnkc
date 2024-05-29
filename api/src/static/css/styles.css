@@ -1,0 +1,50 @@
+body {
+    font-family: Raleway, sans-serif;
+    background-color: #111827;
+    padding: 32px !important;
+}
+
+a {
+    color: #FFF7F4;
+    text-decoration: none;
+}
+
+.logo {
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    color: #02B3FD;
+    font-weight: 600;
+}
+
+.logo > span {
+    font-size: 32px;
+    color: #FF621F;
+    font-weight: 700;
+}
+
+.btn-bright-orange {
+    background-color: #02B3FD;
+    border-color: #02B3FD;
+    color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-bright-orange:hover {
+    background-color: #FF621F;
+    border-color: #FF621F;
+    color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.white-text {
+    color: #FFF7F4;
+}
+
+.title-text {
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.orange-text {
+    color: #FF621F;
+}

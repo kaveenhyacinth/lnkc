@@ -8,6 +8,8 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const staticDirectory = `${process.cwd()}/src/static/`;
+  app.useStaticAssets(staticDirectory);
 
   app.enableCors();
 
