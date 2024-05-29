@@ -11,6 +11,7 @@ import {useMutation} from "@tanstack/react-query";
 import {api, IResponseError} from "../../../api";
 import {STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
 import {useToast} from "@/components/ui/use-toast.ts";
+import {Loader2} from "lucide-react";
 
 type SignInForm = z.infer<typeof validation.signIn>
 
@@ -90,11 +91,13 @@ export const SignIn = () => {
               Forgot password?
             </Link>
           </p>
-          <Button className="w-full !mt-6 bg-bright-orange" type="submit">Sign in</Button>
+          <Button className="w-full !mt-6 bg-bright-orange" type="submit" disabled={mutation.isPending}>
+            {mutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
+            Sign in
+          </Button>
         </form>
       </Form>
-      <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up"
-                                                                       className="text-bright-orange hover:text-dark-orange">sign
+      <p className="text-sm font-raleway">Don't have an account? <Link to="/auth/sign-up" className="text-bright-orange hover:text-dark-orange">sign
         up</Link>
       </p>
     </Page>
