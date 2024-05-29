@@ -3,19 +3,29 @@ import {Page} from "@/components/templates/page.tsx";
 import {AccountDropdown} from "@/components/organisms/account-dropdown.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {LinkCard} from "@/components/molecules/link-card.tsx";
-import {QUERY_KEY_USER_ME, STORAGE_KEY_TEAM, STORAGE_KEY_TOKEN} from "@/lib/constants.ts";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {
+  DASHBOARD_BANNER_TEXT,
+  QUERY_KEY_LINKS,
+  QUERY_KEY_USER_ME,
+  STORAGE_KEY_TEAM,
+  STORAGE_KEY_TOKEN
+} from "@/lib/constants.ts";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {api, IResponseError} from "../../../api";
 import {useEffect, useState} from "react";
 import {CreateLinkDialog} from "@/components/organisms/create-link-dialog.tsx";
 import {useToast} from "@/components/ui/use-toast.ts";
 import {ILink} from "../../../api/types.ts";
+import {DashboardBannerTextValue} from "@/lib/types.ts";
+import {PageLoader} from "@/components/molecules/page-loader.tsx";
 
 export const Dashboard = () => {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const {toast} = useToast()
 
   const [url, setUrl] = useState<string>("")
+  const [bannerText, setBannerText] = useState<DashboardBannerTextValue>()
   const [showLinkInput, setShowLinkInput] = useState(true);
   const [scrollYPosition, setScrollYPosition] = useState(0);
 
@@ -25,16 +35,16 @@ export const Dashboard = () => {
   })
 
   const getAllLinksQuery = useQuery({
-    queryKey: ['links'],
+    queryKey: [QUERY_KEY_LINKS],
     queryFn: () => api.links.$get(),
-    enabled: !!getUserQuery.data?.id && !!getUserQuery.data?.team
+    enabled: !!getUserQuery.data?.id && !!getUserQuery.data?.team,
   })
 
   const createLinkMutation = useMutation({
     mutationFn: api.links.$post,
     onSuccess: async () => {
       setUrl('')
-      await getAllLinksQuery.refetch()
+      await queryClient.invalidateQueries({queryKey: [QUERY_KEY_LINKS]})
     },
     onError: (error: IResponseError) => {
       toast({
@@ -51,7 +61,7 @@ export const Dashboard = () => {
       payload: { title: string, description: string }
     }) => api.links._linkId(linkId).$patch({body: payload}),
     onSuccess: async () => {
-      await getAllLinksQuery.refetch()
+      await queryClient.invalidateQueries({queryKey: [QUERY_KEY_LINKS]})
     },
     onError: (error: IResponseError) => {
       toast({
@@ -65,7 +75,7 @@ export const Dashboard = () => {
   const deleteLinkMutation = useMutation({
     mutationFn: (linkId: string) => api.links._linkId(linkId).$delete(),
     onSuccess: async () => {
-      await getAllLinksQuery.refetch()
+      await queryClient.invalidateQueries({queryKey: [QUERY_KEY_LINKS]})
     },
     onError: (error: IResponseError) => {
       toast({
@@ -81,6 +91,13 @@ export const Dashboard = () => {
     if (team)
       localStorage.setItem(STORAGE_KEY_TEAM, team)
   }, [getUserQuery, getUserQuery?.data])
+
+  useEffect(() => {
+    if (!getAllLinksQuery.isPending) {
+      if (getAllLinksQuery.data?.length) setBannerText(DASHBOARD_BANNER_TEXT.touched)
+      else setBannerText(DASHBOARD_BANNER_TEXT.empty)
+    }
+  }, [getAllLinksQuery.data?.length, getAllLinksQuery.isPending]);
 
   const handleScroll = () => {
     const newScrollYPosition = window.pageYOffset;
@@ -134,6 +151,15 @@ export const Dashboard = () => {
         </div>
       )}
     >
+      <PageLoader
+        enabled={
+          getUserQuery.isPending
+          || getAllLinksQuery.isPending
+          || createLinkMutation.isPending
+          || updateLinkMutation.isPending
+          || deleteLinkMutation.isPending
+        }
+      />
       {showLinkInput ? (
         <div className="w-full">
           <h1 className="font-raleway font-semibold text-2xl md:text-4xl text-center">Shorter links, with <span
@@ -161,7 +187,11 @@ export const Dashboard = () => {
           <CreateLinkDialog isFloating url={url} setUrl={(url) => setUrl(url)} onCreate={onCreateShortCode}/>
         </>
       )}
-      <section className="w-full mb-6 mt-6 md:mt-10 flex flex-col justify-center items-center">
+      {bannerText?.title && <section className="w-full mb-6 mt-4 md:mt-8 flex flex-col justify-center items-center">
+        <h2 className="text-bright-blue font-raleway font-semibold text-3xl">{bannerText.title}</h2>
+        <p className="text-sm">{bannerText.description}</p>
+      </section>}
+      <section className="w-full mb-6 mt-2 md:mt-4 flex flex-col justify-center items-center">
         <div className="w-full md:w-max grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {getAllLinksQuery.data?.map((link) => (
             <LinkCard key={link.id} link={link} onUpdate={onUpdateShortCode} onDelete={onDeleteShortCode}/>
