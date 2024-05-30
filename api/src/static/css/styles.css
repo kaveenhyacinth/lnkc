@@ -22,17 +22,31 @@ a {
     font-weight: 700;
 }
 
-.btn-bright-orange {
+.btn-lnkc {
     background-color: #02B3FD;
     border-color: #02B3FD;
     color: #FFFFFF;
     font-family: 'Open Sans', sans-serif;
 }
 
-.btn-bright-orange:hover {
+.btn-lnkc:hover {
     background-color: #FF621F;
     border-color: #FF621F;
     color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-outline-lnkc {
+    background-color: transparent;
+    border-color: #02B3FD;
+    color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-outline-lnkc:hover {
+    background-color: transparent;
+    border-color: #FF621F;
+    color: #FF621F;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -43,8 +57,181 @@ a {
 .title-text {
     font-weight: 600;
     font-size: 36px;
+    text-align: center;
 }
 
 .orange-text {
     color: #FF621F;
 }
+
+
+/* Start:Particles animation */
+.particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
+    visibility: hidden;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 98, 31, 0.7); /* Accent color */
+    box-shadow: 0 0 10px rgba(255, 98, 31, 0.5), 0 0 20px rgba(255, 98, 31, 0.3);
+    opacity: 0; /* Start invisible */
+    animation: move 20s linear infinite, fadeIn 2s forwards;
+    /* Random initial position */
+    top: calc(100% * var(--start-top));
+    left: calc(100% * var(--start-left));
+    /* Random animation delay */
+    animation-delay: calc(20s * var(--delay)), calc(2s * var(--delay)); /* Sync fade-in with movement */
+}
+
+/* Keyframes for moving particles in random directions */
+@keyframes move {
+    0% {
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+    }
+    25% {
+        transform: translate3d(calc(100vw * var(--dir-x)), calc(-50vh * var(--dir-y)), 0);
+        visibility: visible;
+    }
+    50% {
+        transform: translate3d(calc(-50vw * var(--dir-x)), calc(100vh * var(--dir-y)), 0);
+        visibility: visible;
+    }
+    75% {
+        transform: translate3d(calc(50vw * var(--dir-x)), calc(50vh * var(--dir-y)), 0);
+        visibility: visible;
+    }
+    100% {
+        transform: translate3d(calc(-100vw * var(--dir-x)), calc(-100vh * var(--dir-y)), 0);
+        visibility: visible;
+    }
+}
+
+/* Keyframes for fading in particles */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Create multiple particles with different initial positions, directions, and animation durations */
+.particle:nth-child(1) {
+    --start-top: 0.1;
+    --start-left: 0.05;
+    --delay: 0.1;
+    --dir-x: 1;
+    --dir-y: 1;
+    animation-duration: 25s;
+}
+
+.particle:nth-child(2) {
+    --start-top: 0.2;
+    --start-left: 0.15;
+    --delay: 0.2;
+    --dir-x: -1;
+    --dir-y: 1;
+    animation-duration: 30s;
+}
+
+.particle:nth-child(3) {
+    --start-top: 0.3;
+    --start-left: 0.25;
+    --delay: 0.3;
+    --dir-x: 1;
+    --dir-y: -1;
+    animation-duration: 35s;
+}
+
+.particle:nth-child(4) {
+    --start-top: 0.4;
+    --start-left: 0.35;
+    --delay: 0.4;
+    --dir-x: -1;
+    --dir-y: -1;
+    animation-duration: 40s;
+}
+
+.particle:nth-child(5) {
+    --start-top: 0.5;
+    --start-left: 0.45;
+    --delay: 0.5;
+    --dir-x: 1;
+    --dir-y: 1;
+    animation-duration: 45s;
+}
+
+.particle:nth-child(6) {
+    --start-top: 0.6;
+    --start-left: 0.55;
+    --delay: 0.6;
+    --dir-x: -1;
+    --dir-y: 1;
+    animation-duration: 50s;
+}
+
+.particle:nth-child(7) {
+    --start-top: 0.7;
+    --start-left: 0.65;
+    --delay: 0.7;
+    --dir-x: 1;
+    --dir-y: -1;
+    animation-duration: 55s;
+}
+
+.particle:nth-child(8) {
+    --start-top: 0.8;
+    --start-left: 0.75;
+    --delay: 0.8;
+    --dir-x: -1;
+    --dir-y: -1;
+    animation-duration: 60s;
+}
+
+.particle:nth-child(9) {
+    --start-top: 0.9;
+    --start-left: 0.85;
+    --delay: 0.9;
+    --dir-x: 1;
+    --dir-y: 1;
+    animation-duration: 65s;
+}
+
+.particle:nth-child(10) {
+    --start-top: 0.1;
+    --start-left: 0.95;
+    --delay: 1.0;
+    --dir-x: -1;
+    --dir-y: 1;
+    animation-duration: 70s;
+}
+
+.particle:nth-child(11) {
+    --start-top: 0.5;
+    --start-left: 0.25;
+    --delay: 1.1;
+    --dir-x: 1;
+    --dir-y: -1;
+    animation-duration: 75s;
+}
+
+.particle:nth-child(12) {
+    --start-top: 0.8;
+    --start-left: 0.15;
+    --delay: 1.2;
+    --dir-x: -1;
+    --dir-y: -1;
+    animation-duration: 80s;
+}
+/* End:Particles animation */
