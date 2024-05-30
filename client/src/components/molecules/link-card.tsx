@@ -22,7 +22,7 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
   }>({views: 0, text: 'views'})
 
   const onCopy = async () => {
-    const value = `http://localhost:8080/${link.shortCode}`
+    const value = `${import.meta.env.VITE_API_BASE_URL}/${link.shortCode}`
     try {
       await navigator.clipboard.writeText(value)
       toast({
@@ -51,14 +51,14 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
       </CardHeader>
       <CardContent>
         <p className="text-sm font-raleway hidden mb-2">{link.url}</p>
-        <a href={`http://localhost:8080/${link.shortCode}`} target="_blank">
+        <a href={`${import.meta.env.VITE_API_BASE_URL}/${link.shortCode}`} target="_blank">
           <p className="text-md text-bright-blue font-semibold font-raleway">lnkc.xyz/{link.shortCode}</p>
         </a>
       </CardContent>
       <CardFooter>
         <div className="w-full h-6 flex justify-between items-center">
           <div className="flex-1 flex gap-3 items-center">
-            <a href={`http://localhost:8080/${link.shortCode}`} target="_blank">
+            <a href={`${import.meta.env.VITE_API_BASE_URL}/${link.shortCode}`} target="_blank">
               <VisitIcon className="action-icon"/>
             </a>
             <CopyIcon className="action-icon" onClick={onCopy}/>

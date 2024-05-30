@@ -73,10 +73,10 @@ export const UpdateLinkDialog = ({link, onUpdate, onDelete}: UpdateLinkDialogPro
         <div>
           <a
             className="text-md text-bright-blue font-semibold font-raleway cursor-pointer"
-            href={`http://localhost:8080/${link.shortCode}`}
+            href={`${import.meta.env.VITE_API_BASE_URL}/${link.shortCode}`}
             target="_blank"
           >
-            https://lnkc.xyz/{link.shortCode}
+            lnkc.xyz/{link.shortCode}
           </a>
         </div>
         <Form {...form}>
