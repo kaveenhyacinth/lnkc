@@ -46,8 +46,8 @@ export const LinkCard = ({link, onUpdate, onDelete}: LinkCardProps) => {
   return (
     <Card className="w-full md:w-[300px] h-[180px] flex flex-col justify-between">
       <CardHeader>
-        <CardTitle className="overflow-hidden overflow-ellipsis">{link.title}</CardTitle>
-        <CardDescription className="overflow-hidden overflow-ellipsis">{link.description}</CardDescription>
+        <CardTitle className="overflow-hidden overflow-ellipsis whitespace-nowrap">{link.title}</CardTitle>
+        <CardDescription className="overflow-hidden overflow-ellipsis whitespace-nowrap">{link.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-sm font-raleway hidden mb-2">{link.url}</p>

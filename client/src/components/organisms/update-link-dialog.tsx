@@ -18,6 +18,7 @@ import {ILink} from "../../../api/types.ts";
 import EditIcon from "@/assets/svg/edit-icon.svg?react";
 import {TrashIcon} from "lucide-react";
 import {Alert} from "@/components/templates/alert.tsx";
+import {Textarea} from "@/components/ui/textarea.tsx";
 
 type UpdateLinkForm = z.infer<typeof validation.createLink>
 
@@ -101,7 +102,7 @@ export const UpdateLinkDialog = ({link, onUpdate, onDelete}: UpdateLinkDialogPro
                 <FormItem>
                   <FormLabel>Description (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter description here..." {...field}/>
+                    <Textarea placeholder="Enter description here..." {...field}/>
                   </FormControl>
                   <FormMessage/>
                 </FormItem>
@@ -110,7 +111,7 @@ export const UpdateLinkDialog = ({link, onUpdate, onDelete}: UpdateLinkDialogPro
             <FormItem>
               <FormLabel>URL</FormLabel>
               <FormControl>
-                <Input placeholder="https://..." value={link.url} disabled/>
+                <Textarea className="min-h-[40px]" placeholder="https://..." value={link.url} disabled/>
               </FormControl>
             </FormItem>
             <div className="w-full !mt-6 flex justify-between items-center gap-3">

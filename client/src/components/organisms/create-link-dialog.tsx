@@ -15,6 +15,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {useState} from "react";
 import {PlusIcon} from "lucide-react";
+import {Textarea} from "@/components/ui/textarea.tsx";
 
 type CreateLinkForm = z.infer<typeof validation.createLink>
 
@@ -89,7 +90,7 @@ export const CreateLinkDialog = ({url, setUrl, isFloating, onCreate}: CreateLink
                 <FormItem>
                   <FormLabel>Description (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter description here..." {...field}/>
+                    <Textarea placeholder="Enter description here..." {...field}/>
                   </FormControl>
                   <FormMessage/>
                 </FormItem>
@@ -98,7 +99,7 @@ export const CreateLinkDialog = ({url, setUrl, isFloating, onCreate}: CreateLink
             <FormItem>
               <FormLabel>URL</FormLabel>
               <FormControl>
-                <Input placeholder="https://..." value={url} onChange={(e) => setUrl(e.target.value)}/>
+                <Textarea placeholder="https://..." value={url} onChange={(e) => setUrl(e.target.value)}/>
               </FormControl>
             </FormItem>
             <Button className="w-full !mt-6" type="submit">Create</Button>
