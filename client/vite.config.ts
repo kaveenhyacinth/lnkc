@@ -11,6 +11,9 @@ export default defineConfig({
     TanStackRouterVite(),
     svgr(),
   ],
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
