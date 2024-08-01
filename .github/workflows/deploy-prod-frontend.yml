@@ -3,9 +3,6 @@ name: Deploy Production Frontend
 on:
   workflow_dispatch:
 
-on:
-  workflow_dispatch:
-
 jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
